@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ondřej Šindelka</title>
+    <meta name="description" content="Osobní portfolio Ondřeje Šindelky">
+    <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="icons/favicon.ico">
+    <style>
+        :root {
+            --primary: linear-gradient(135deg, #1a1a1a 0%, #2d1a2d 30%, #4a1a1a 100%);
+            --secondary: #f4f3ee;
+            --accent: #ff6b6b;
+            --github: #6e5494;
+        }
+
+        [data-theme="light"] {
+            --primary: #f4f3ee;
+            --secondary: #403d39;
+            --accent: #e63946;
+            --github: #6e5494;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        body {
+            background: var(--primary);
+            color: var(--secondary);
+            min-height: 100vh;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.6;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Bai Jamjuree', sans-serif;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            background: linear-gradient(45deg, var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .social-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            color: var(--secondary);
+            text-decoration: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 107, 107, 0.2);
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-link.github {
+            background: rgba(0, 0, 0, 0.3);
+            border-color: 1px solid rgba(255, 107, 107, 0.2);
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: 0.5s;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255,107,107,0.2);
+            background: rgba(255,107,107,0.15);
+        }
+
+        .social-link.github:hover {
+            background: rgba(110, 84, 148, 0.3);
+            box-shadow: 0 10px 20px rgba(110, 84, 148, 0.2);
+        }
+
+        .social-link:hover::before {
+            left: 100%;
+        }
+
+        .social-link i {
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+        }
+
+        .social-link:hover i {
+            transform: scale(1.2);
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255,107,107,0.2);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            color: var(--secondary);
+            font-size: 1.2rem;
+            z-index: 3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s;
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(30deg) scale(1.1);
+        }
+
+        .flash-message {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            display: none;
+            backdrop-filter: blur(10px);
+            z-index: 3;
+            animation: fadeIn 0.5s;
+        }
+
+        @media (max-width: 768px) {
+            .social-links {
+                flex-direction: column;
+                gap: 1rem;
+                width: 100%;
+            }
+            
+            .social-link {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" id="themeToggle" aria-label="Přepnout tmavý/světlý režim">🌓</button>
+    <div id="particles-js"></div>
+
+    <div class="container">
+        <h1>Ondřej Šindelka</h1>
+        
+        <div class="social-links">
+            <a href="#" class="social-link" id="discord" data-name=".olyn" aria-label="Kopírovat Discord tag">
+                <i class="fab fa-discord"></i>
+                .olyn
+            </a>
+            <a href="https://github.com/Olyn0" class="social-link github" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-github"></i>
+                Olyn0
+            </a>
+            <a href="#" class="social-link" id="email" data-name="ondrasindelka9@gmail.com" aria-label="Kopírovat email">
+                <i class="fas fa-envelope"></i>
+                Email
+            </a>
+        </div>
+    </div>
+
+    <div class="flash-message" id="flashMessage" role="alert"></div>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Theme toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            body.setAttribute('data-theme', savedTheme);
+            themeToggle.textContent = savedTheme === 'light' ? '🌙' : '☀️';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            body.setAttribute('data-theme', newTheme);
+            themeToggle.textContent = newTheme === 'light' ? '🌙' : '☀️';
+            localStorage.setItem('theme', newTheme);
+        });
+
+        // Částicová konfigurace
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80 },
+                color: { value: '#ff6b6b' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.7 },
+                size: { value: 3 },
+                move: {
+                    enable: true,
+                    speed: 1.5,
+                    direction: 'none',
+                    out_mode: 'out'
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#ff6b6b',
+                    opacity: 0.4,
+                    width: 1
+                }
+            },
+            interactivity: {
+                events: {
+                    onhover: { enable: true, mode: 'repulse' }
+                }
+            },
+            retina_detect: true
+        });
+
+        // Kopírování Discordu a emailu
+        function setupCopyButton(buttonId, successMessage) {
+            const button = document.getElementById(buttonId);
+            
+            button.addEventListener('click', async function(e) {
+                e.preventDefault();
+                const textToCopy = this.dataset.name;
+                const flashMessage = document.getElementById('flashMessage');
+                
+                try {
+                    await navigator.clipboard.writeText(textToCopy);
+                    flashMessage.textContent = successMessage;
+                    flashMessage.style.display = 'block';
+                    setTimeout(() => flashMessage.style.display = 'none', 2000);
+                } catch (err) {
+                    flashMessage.textContent = "Kopírování selhalo";
+                    flashMessage.style.display = 'block';
+                    setTimeout(() => flashMessage.style.display = 'none', 2000);
+                }
+            });
+        }
+
+        setupCopyButton('discord', '✓ Discord tag zkopírován!');
+        setupCopyButton('email', '✓ Email zkopírován!');
+    </script>
+</body>
+</html>
