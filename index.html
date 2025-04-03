@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ondřej Šindelka</title>
-    <meta name="description" content="Osobní portfolio Ondřeje Šindelky">
+    <title>Ondřej Šindelka | IT Student & Developer</title>
+    <meta name="description" content="Osobní portfolio Ondřeje Šindelky - Student IT se zaměřením na webový vývoj, Python a datovou analýzu">
     <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" href="icons/favicon.ico">
@@ -73,6 +73,40 @@
             background-clip: text;
             color: transparent;
             animation: fadeIn 1s ease-out;
+        }
+
+        .subtitle {
+            color: var(--secondary);
+            font-size: clamp(1rem, 4vw, 1.8rem);
+            margin-bottom: 2rem;
+            font-weight: 400;
+            animation: fadeIn 1s ease-out 0.2s;
+            animation-fill-mode: backwards;
+            max-width: 800px;
+            line-height: 1.4;
+        }
+
+        .tech-stack {
+            display: flex;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .tech-item {
+            background: rgba(255,107,107,0.1);
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            border: 1px solid var(--accent);
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .tech-item:hover {
+            transform: translateY(-3px);
+            background: rgba(255,107,107,0.2);
+            box-shadow: 0 4px 8px rgba(255,107,107,0.1);
         }
 
         @keyframes fadeIn {
@@ -194,6 +228,15 @@
                 width: 100%;
                 justify-content: center;
             }
+
+            .tech-stack {
+                gap: 0.7rem;
+            }
+
+            .tech-item {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
@@ -203,15 +246,25 @@
 
     <div class="container">
         <h1>Ondřej Šindelka</h1>
+        <p class="subtitle">
+            Computer science student
+            <div class="tech-stack">
+                <span class="tech-item">Python</span>
+                <span class="tech-item">C#</span>        
+                <span class="tech-item">Linux</span>
+                <span class="tech-item">Next.js</span>                        
+                <span class="tech-item">MacOS</span>
+            </div>
+        </p>
         
         <div class="social-links">
             <a href="#" class="social-link" id="discord" data-name=".olyn" aria-label="Kopírovat Discord tag">
                 <i class="fab fa-discord"></i>
                 .olyn
             </a>
-            <a href="https://github.com/Olyn0" class="social-link github" target="_blank" rel="noopener noreferrer">
+            <a href="https://github.com/ondrejsindelka" class="social-link github" target="_blank" rel="noopener noreferrer">
                 <i class="fab fa-github"></i>
-                Olyn0
+                ondrejsindelka
             </a>
             <a href="#" class="social-link" id="email" data-name="ondrasindelka9@gmail.com" aria-label="Kopírovat email">
                 <i class="fas fa-envelope"></i>
@@ -243,19 +296,46 @@
             localStorage.setItem('theme', newTheme);
         });
 
-        // Částicová konfigurace
+        // Částicová konfigurace s IT motivem
         particlesJS('particles-js', {
             particles: {
-                number: { value: 80 },
+                number: { 
+                    value: 120,
+                    density: {
+                        enable: true,
+                        value_area: 800
+                    } 
+                },
                 color: { value: '#ff6b6b' },
-                shape: { type: 'circle' },
-                opacity: { value: 0.7 },
-                size: { value: 3 },
-                move: {
-                    enable: true,
-                    speed: 1.5,
-                    direction: 'none',
-                    out_mode: 'out'
+                shape: {
+                    type: ['circle', 'triangle', 'polygon'],
+                    polygon: { 
+                        nb_sides: 6 
+                    },
+                    stroke: {
+                        width: 0,
+                        color: '#000000'
+                    }
+                },
+                opacity: {
+                    value: 0.7,
+                    random: true,
+                    anim: {
+                        enable: true,
+                        speed: 1,
+                        opacity_min: 0.1,
+                        sync: false
+                    }
+                },
+                size: {
+                    value: 3,
+                    random: true,
+                    anim: {
+                        enable: true,
+                        speed: 2,
+                        size_min: 0.1,
+                        sync: false
+                    }
                 },
                 line_linked: {
                     enable: true,
@@ -263,11 +343,43 @@
                     color: '#ff6b6b',
                     opacity: 0.4,
                     width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    random: true,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false,
+                    attract: {
+                        enable: true,
+                        rotateX: 600,
+                        rotateY: 1200
+                    }
                 }
             },
             interactivity: {
+                detect_on: 'window',
                 events: {
-                    onhover: { enable: true, mode: 'repulse' }
+                    onhover: {
+                        enable: true,
+                        mode: 'repulse'
+                    },
+                    onclick: {
+                        enable: true,
+                        mode: 'push'
+                    },
+                    resize: true
+                },
+                modes: {
+                    repulse: {
+                        distance: 100,
+                        duration: 0.4
+                    },
+                    push: {
+                        particles_nb: 4
+                    }
                 }
             },
             retina_detect: true
